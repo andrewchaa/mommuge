@@ -1,0 +1,22 @@
+<% layout('masterpage') -%>
+
+<div class="container">
+	<h1>your weights</h1>
+
+	<p>&nbsp;</p>
+
+	<ul class="list-group col-md-8 col-md-offset-2" style="text-align: left">
+	<%  measures.forEach(function(measure) { %>
+
+		<li class="list-group-item">
+			<span class="col-md-6"><%= moment(new Date(measure.ofDate)).format('ddd. DD/MM/YYYY') %></span>
+			<span class="col-md-2">
+			<span class="label label-info"><%= measure.weight %></span>
+			</span>
+
+			<span class=""><%= measure.unit %></span>
+		</li>
+	<%	}) %>
+	</ul>
+
+</div>

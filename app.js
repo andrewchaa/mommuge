@@ -4,16 +4,19 @@
  */
 
 var express = require('express');
+var engine = require('ejs-locals');
+var app = express();
+
 var routes = require('./routes');
-var user = require('./routes/user');
-var weight = require('./routes/weight')
+var index = require('./routes/index');
+var review = require('./routes/review');
 
 var http = require('http');
 var path = require('path');
 
-var app = express();
 
 // all environments
+app.engine('ejs', engine);
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -30,9 +33,9 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
-app.post('/', weight.submit());
-app.get('/users', user.list);
+app.get('/', index.get);
+app.post('/', index.submit());
+app.get('/review', review.get)
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
